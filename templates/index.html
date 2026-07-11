@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Dự đoán khí thải CO₂</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Dự đoán lượng khí thải CO₂</h1>
+
+    <form action="/predict" method="post">
+
+        <label>Dung tích động cơ (L)</label>
+        <input type="number" step="0.1" name="engine" required>
+
+        <label>Số xi-lanh</label>
+        <input type="number" name="cylinders" required>
+
+        <label>Loại nhiên liệu</label>
+
+        <select name="fuel">
+
+            <option>Regular Gasoline</option>
+
+            <option>Premium Gasoline</option>
+
+            <option>Diesel</option>
+
+            <option>Natural Gas</option>
+
+            <option>E85</option>
+
+        </select>
+
+        <label>Tiêu thụ trong thành phố (L/100km)</label>
+        <input type="number" step="0.1" name="city" required>
+
+        <label>Tiêu thụ ngoài cao tốc (L/100km)</label>
+        <input type="number" step="0.1" name="highway" required>
+
+        <label>Tiêu thụ kết hợp (L/100km)</label>
+        <input type="number" step="0.1" name="combined" required>
+
+        <button type="submit">
+            Dự đoán
+        </button>
+
+    </form>
+
+    {% if prediction %}
+
+    <div class="result">
+
+        <h2>
+
+            CO₂ dự đoán:
+
+            {{ prediction }}
+
+            g/km
+
+        </h2>
+
+    </div>
+
+    {% endif %}
+
+    {% if error %}
+
+    <div class="error">
+
+        {{ error }}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>
